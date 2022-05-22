@@ -48,9 +48,22 @@ static DialogMessageButton greetz_screen(DialogsApp* dialogs, DialogMessage* mes
     return result;
 }
 
+static DialogMessageButton tunez_screen(DialogsApp* dialogs, DialogMessage* message) {
+    DialogMessageButton result;
+
+    const char* screen_banner = ".:~ tunez? ~:.";
+    
+    dialog_message_set_header(message, screen_banner, GUI_DISPLAY_WIDTH / 2, 0, AlignCenter, AlignTop);
+    result = dialog_message_show(dialogs, message);
+    dialog_message_set_header(message, NULL, 0, 0, AlignCenter, AlignTop);
+
+    return result;
+}
+
 const TuesdayDialogScreen tuesday_screens[] = {
     banner_screen,
-    greetz_screen
+    greetz_screen,
+    tunez_screen
 };
 
 const size_t tuesday_screens_count = sizeof(tuesday_screens) / sizeof(TuesdayDialogScreen);
@@ -86,7 +99,7 @@ int32_t tuesday_app(void* p) {
         if(screen_index >= tuesday_screens_count - 1) {
             dialog_message_set_buttons(message, "", NULL, NULL);
         } else {
-            dialog_message_set_buttons(message, "", NULL, "greetz");
+            dialog_message_set_buttons(message, "", NULL, "");
         }
 
         screen_result = tuesday_screens[screen_index](dialogs, message);
