@@ -113,7 +113,9 @@ int32_t tuesday_app(void* p) {
         } else if(screen_result == DialogMessageButtonRight) {
             if(screen_index < tuesday_screens_count) {
                 screen_index++;
-            } else if (screen_index == 2) {
+            } 
+
+            if (screen_index == 2) {
                 printf("loading %s\r\n", song);
 
                 if(!music_player_worker_load_fmf_from_file(music_player_worker, song)) {
