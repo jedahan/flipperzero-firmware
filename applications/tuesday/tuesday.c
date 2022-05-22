@@ -6,6 +6,9 @@
 #include <m-string.h>
 #include <furi_hal_version.h>
 
+// For the tunes
+#include "../music_player/music_player_worker.h"
+
 #define GUI_DISPLAY_WIDTH 128
 
 typedef DialogMessageButton (*TuesdayDialogScreen)(DialogsApp* dialogs, DialogMessage* message);
@@ -57,6 +60,8 @@ int32_t tuesday_app(void* p) {
     DialogsApp* dialogs = furi_record_open("dialogs");
     DialogMessage* message = dialog_message_alloc();
 
+    MusicPlayerWorker* music_player_worker = music_player_worker_alloc();
+
     Gui* gui = furi_record_open("gui");
     ViewDispatcher* view_dispatcher = view_dispatcher_alloc();
     EmptyScreen* empty_screen = empty_screen_alloc();
@@ -70,6 +75,12 @@ int32_t tuesday_app(void* p) {
         view_dispatcher, empty_screen_index, empty_screen_get_view(empty_screen));
     view_dispatcher_attach_to_gui(view_dispatcher, gui, ViewDispatcherTypeFullscreen);
     view_dispatcher_switch_to_view(view_dispatcher, empty_screen_index);
+
+    printf("song is being defined\r\n");
+
+    const char* song = "/any/music_player/AirWolf.fmf";
+
+    printf("Starting main loop\r\n");
 
     while(1) {
         if(screen_index >= tuesday_screens_count - 1) {
@@ -89,6 +100,21 @@ int32_t tuesday_app(void* p) {
         } else if(screen_result == DialogMessageButtonRight) {
             if(screen_index < tuesday_screens_count) {
                 screen_index++;
+            } else {
+                printf("loading %s\r\n", song);
+
+                if(!music_player_worker_load_fmf_from_file(music_player_worker, song)) {
+                    printf("Failed to open file %s\r\n", song);
+                }
+
+                printf("setting volume\r\n");
+
+                music_player_worker_set_volume(music_player_worker, 1.0f);
+                printf("Starting worker\r\n");
+                music_player_worker_start(music_player_worker);
+                while(1) { osDelay(50); }
+                music_player_worker_stop(music_player_worker);
+                music_player_worker_free(music_player_worker);
             }
         } else if(screen_result == DialogMessageButtonBack) {
             break;
