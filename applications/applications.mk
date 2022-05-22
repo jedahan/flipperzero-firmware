@@ -47,6 +47,7 @@ APP_UPDATER = 1
 # Plugins
 APP_MUSIC_PLAYER = 1
 APP_SNAKE_GAME = 1
+APP_TUESDAY = 1
 
 # Debug
 APP_ACCESSOR = 1
@@ -108,6 +109,13 @@ endif
 APP_ABOUT ?= 0
 ifeq ($(APP_ABOUT), 1)
 CFLAGS		+= -DAPP_ABOUT
+SRV_GUI		= 1
+endif
+
+
+APP_TUESDAY ?= 0
+ifeq ($(APP_TUESDAY), 1)
+CFLAGS		+= -DAPP_TUESDAY
 SRV_GUI		= 1
 endif
 

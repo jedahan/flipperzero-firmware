@@ -168,6 +168,7 @@ extern const Icon I_MHz_25x11;
 extern const Icon I_Quest_7x8;
 extern const Icon I_Scanning_123x52;
 extern const Icon I_Unlock_7x8;
+extern const Icon I_BANNER_128x50;
 extern const Icon I_Auth_62x31;
 extern const Icon I_Connect_me_62x31;
 extern const Icon I_Connected_62x31;

@@ -33,6 +33,7 @@
 - `subghz`              - SubGhz application, 433 fobs and etc
 - `system`              - System settings, tools and API
 - `tests`               - Unit tests and etc
+- `tuesday`             - Hack Tuesday Night
 - `u2f`                 - U2F Application
 - `updater`             - Update service & application
 
