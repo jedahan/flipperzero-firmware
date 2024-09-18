@@ -132,7 +132,9 @@ const char* furi_hal_region_get_name(void) {
 }
 
 bool furi_hal_region_is_frequency_allowed(uint32_t frequency) {
-    return furi_hal_region_get_band(frequency) != NULL;
+    /* Prevent unused argument(s) compilation warning */
+    UNUSED(frequency);
+    return true;
 }
 
 const FuriHalRegionBand* furi_hal_region_get_band(uint32_t frequency) {
